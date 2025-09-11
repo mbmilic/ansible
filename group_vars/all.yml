@@ -1,0 +1,15 @@
+# Edit to your liking
+user_name: "{{ lookup('env', 'USER') or 'youruser' }}"
+user_home: "/home/{{ user_name }}"
+
+
+# Base packages to have everywhere
+common_packages:
+- htop
+- stow
+
+
+# Dotfiles config
+# e.g. https://github.com/yourname/dotfiles.git
+_dotfiles_repo: "https://github.com/mbmilic/.dotfiles"
+_dotfiles_branch: main

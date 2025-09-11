@@ -1,0 +1,16 @@
+---
+- hosts: local
+  become: true
+  vars_files:
+    - ../group_vars/all.yml
+  tasks:
+  - name: Update pacman database (Arch)
+    community.general.pacman:
+      update_cache: true
+
+  - name: Install common packages
+    community.general.pacman:
+      name: "{{ common_packages }}"
+      state: present
+  tags: [always, common]
+
