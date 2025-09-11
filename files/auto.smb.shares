@@ -1,0 +1,5 @@
+rsync -chavzP --stats 
+/mnt/nasko      -fstype=cifs,rw,credentials=/root/.nasko_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/nasko
+/mnt/moje       -fstype=cifs,rw,credentials=/root/.moje_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/moje
+/mnt/moj_sef    -fstype=cifs,rw,credentials=/root/.moje_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/moj_sef
+/mnt/max      -fstype=cifs,rw,credentials=/root/.nasko_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/max
