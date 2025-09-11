@@ -1,0 +1,71 @@
+---
+- name: CIFS/SMB automount setup
+  hosts: local
+  tags: [cifs]
+  become: true
+  vars:
+    cifs_packages:
+    - cifs-utils
+    - samba
+    cifs_creds_files:
+      - { src: ../files/.nasko_creds, dest: /root/.nasko_creds }
+      - { src: ../files/.moje_creds, dest: /root/.moje_creds }
+  
+  tasks:
+  - name: Install CIFS/SMB related packages
+    community.general.pacman:
+      name: "{{ cifs_packages }}"
+      state: present
+      update_cache: true
+  - name: Install autofs from AUR
+    kewlfft.aur.aur:
+      name: autofs
+      state: present
+      use: yay
+
+  - name: Add the cifs module
+    community.general.modprobe:
+      name: cifs
+      state: present
+      persistent: present
+
+  - name: Ensure that the mount directories exist
+    ansible.builtin.file:
+      path: "/mnt/maximus"
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+
+  - name: Copy autofs auto.master file
+    ansible.builtin.copy:
+      src: ../files/auto.master
+      dest: /etc/autofs/auto.master
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Copy autofs configuration file
+    ansible.builtin.copy:
+      src: ../files/auto.maximus.lan
+      dest: /etc/autofs/auto.maximus.lan
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Deploy NAS credentials (multiple)
+    ansible.builtin.copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: root
+      group: root
+      mode: '0600'
+      force: false
+    loop: "{{ cifs_creds_files }}"
+    loop_control:
+      label: "{{ item.dest }}"
+
+  - name: Enable and start autofs service
+    ansible.builtin.service:
+      name: autofs
+      state: started
+      enabled: true

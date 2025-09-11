@@ -3,6 +3,8 @@
   import_playbook: playbooks/common.yml
 
 
+- name: "NAS mount configuration"
+  import_playbook: playbooks/cifs.yml
 #- name: "Brave browser setup (tag: brave)"
 #  import_playbook: playbooks/brave.yml
 

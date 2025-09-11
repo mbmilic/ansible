@@ -19,5 +19,6 @@ pacman -Sy --needed --noconfirm \
 
 # Optional: install community.general collection (used by some playbooks)
 # Using ansible-galaxy requires a non-root user; we temporarily allow root.
+ansible-galaxy collection install kewlfft.aur
 
 echo "Ansible installed. Version: $(ansible --version | head -n1)"

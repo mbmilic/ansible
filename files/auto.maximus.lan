@@ -1,0 +1,4 @@
+nasko      -fstype=cifs,rw,credentials=/root/.nasko_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/nasko
+moje       -fstype=cifs,rw,credentials=/root/.moje_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/moje
+moj_sef    -fstype=cifs,rw,credentials=/root/.moje_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/moj_sef
+max      -fstype=cifs,rw,credentials=/root/.nasko_creds,iocharset=utf8,uid=0,noperm      ://maximus.lan/max
