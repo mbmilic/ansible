@@ -22,10 +22,13 @@
       path: /etc/sudoers.d/99_aur_builder
       state: present
       line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+      mode: 0644
       validate: /usr/sbin/visudo -cf %s
       create: yes
   - name: Install packages from AUR
     kewlfft.aur.aur:
+    become: yes
+    become_user: aur_builder
       name: "{{ common_packages_aur }}"
       state: present
       use: yay
