@@ -12,8 +12,19 @@
     community.general.pacman:
       name: "{{ common_packages }}"
       state: present
-
-  - name: Install autofs from AUR
+  - name: Create aur_build user and update the sudoers file 
+    user:
+      name: aur_builder
+      home: /home/aur_builder
+      shell: /bin/nologin
+      create_home: yes
+    lineinfile:
+      path: /etc/sudoers.d/99_aur_builder
+      state: present
+      line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+      validate: /usr/sbin/visudo -cf %s
+      create: yes
+  - name: Install packages from AUR
     kewlfft.aur.aur:
       name: "{{ common_packages_aur }}"
       state: present
