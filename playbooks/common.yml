@@ -15,7 +15,7 @@
 
   - name: Install autofs from AUR
     kewlfft.aur.aur:
-      name: {{ "common_packages_aur" }}
+      name: "{{ common_packages_aur }}"
       state: present
       use: yay
   tags: [always, common]
