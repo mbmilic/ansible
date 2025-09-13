@@ -18,6 +18,8 @@
       state: present
       update_cache: true
   - name: Install autofs from AUR
+    become: yes 
+    become_user: aur_builder
     kewlfft.aur.aur:
       name: autofs
       state: present

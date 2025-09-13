@@ -8,7 +8,6 @@ common_packages:
 - htop
 - stow
 - keepassxc
-- brave-bin
 
 common_packages_aur:
 - brave-bin
