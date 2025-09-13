@@ -9,8 +9,8 @@
 #  import_playbook: playbooks/brave.yml
 
 
-#- name: "Dotfiles setup (tag: dotfiles)"
-#  import_playbook: playbooks/dotfiles.yml
+- name: "Dotfiles setup (tag: dotfiles)"
+  import_playbook: playbooks/dotfiles.yml
 
 #- name: "VPN hideme setup (tag: dotfiles)"
 #  import_playbook: playbooks/hideme.yml

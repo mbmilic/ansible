@@ -8,6 +8,7 @@ common_packages:
 - htop
 - stow
 - keepassxc
+- brave-bin
 
 
 # Dotfiles config

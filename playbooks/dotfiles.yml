@@ -1,0 +1,21 @@
+---
+- name: Setup dotfiles with stow
+  hosts: local
+  vars_files:
+    - ../group_vars/all.yml
+  tags: [always, dotfiles]
+  tasks:
+    - name: Clone dotfiles repo
+      become_user: "{{ user_name }}"
+      git:
+        repo: "{{ _dotfiles_repo }}"
+        dest: "{{ user_home }}/.dotfiles"
+        update: yes
+
+    - name: Run stow to link all dotfiles
+      become_user: "{{ user_name }}"
+      args:
+        chdir: "{{ user_home }}/.dotfiles"
+      command: stow . --adopt -t "{{ user_home }}"
+
+
