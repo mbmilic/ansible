@@ -7,7 +7,7 @@ user_home: "/home/{{ user_name }}"
 common_packages:
 - htop
 - stow
-- keepasxc
+- keepassxc
 
 
 # Dotfiles config
