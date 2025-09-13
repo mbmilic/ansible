@@ -12,5 +12,11 @@
     community.general.pacman:
       name: "{{ common_packages }}"
       state: present
+
+  - name: Install autofs from AUR
+    kewlfft.aur.aur:
+      name: {{ "common_packages_aur" }}
+      state: present
+      use: yay
   tags: [always, common]
 

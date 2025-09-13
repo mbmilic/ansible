@@ -10,6 +10,9 @@ common_packages:
 - keepassxc
 - brave-bin
 
+common_packages_aur:
+- brave-bin
+
 
 # Dotfiles config
 # e.g. https://github.com/yourname/dotfiles.git
