@@ -18,4 +18,13 @@
         chdir: "{{ user_home }}/.dotfiles"
       command: stow . --adopt -t "{{ user_home }}"
 
+    - name: Restore working tree to HEAD (drop untracked/modified files in repo)
+      ansible.builtin.command:
+        cmd: git restore .
+      args:
+        chdir: "{{ user_home }}/.dotfiles"
+      changed_when: "'Updated' in restore_out.stdout or 'Updated' in restore_out.stderr"
+      register: restore_out
+
+
 
