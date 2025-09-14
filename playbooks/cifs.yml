@@ -1,7 +1,7 @@
 ---
 - name: CIFS/SMB automount setup
   hosts: local
-  tags: [cifs]
+  tags: [new_machine,cifs]
   become: true
   vars:
     cifs_packages:

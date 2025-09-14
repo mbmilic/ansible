@@ -3,7 +3,7 @@
   hosts: local
   vars_files:
     - ../group_vars/all.yml
-  tags: [always, dotfiles]
+  tags: [new_machine,dotfiles]
   tasks:
     - name: Clone dotfiles repo
       become_user: "{{ user_name }}"

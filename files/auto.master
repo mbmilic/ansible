@@ -1,5 +1,5 @@
 /misc	/etc/autofs/auto.misc
 /net	-hosts
-/mnt/maximus  /etc/autofs/auto.nasko --timeout=60 --ghost
+/mnt/maximus  /etc/autofs/auto.maximus.lan --timeout=60 --ghost
 +dir:/etc/autofs/auto.master.d
 +auto.master
