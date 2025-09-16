@@ -1,0 +1,77 @@
+---
+- name: HideMe openvpn setup
+  hosts: local
+  become: true
+  tags: ["hideme", "new_install"]
+  vars:
+    ovpn_glob: "../encrypted_files/*.ovpn"
+    creds_src: "../encrypted_files/credentials"
+    etc_openvpn: "/etc/openvpn"
+    creds_dir: "/etc/openvpn/credentials"
+    service_description: "Hide.me OpenVPN "
+    systemd_dir: "/etc/systemd/system"
+  tasks:
+    - block:
+        - name: Ensure OpenVPN is installed
+          ansible.builtin.package:
+            name: openvpn
+            state: present
+
+        - name: Ensure /etc/openvpn exists
+          ansible.builtin.file:
+            path: "{{ etc_openvpn }}"
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+
+        - name: Copy all .ovpn configs (vault-encrypted) to /etc/openvpn
+          ansible.builtin.copy:
+            src: "{{ item }}"
+            dest: "{{ etc_openvpn }}/{{ item | basename }}"
+            owner: root
+            group: root
+            mode: "0640"
+          with_fileglob:
+            - "{{ ovpn_glob }}"
+
+        - name: Copy credentials file to /etc/openvpn/credentials
+          ansible.builtin.copy:
+            src: "{{ creds_src }}"
+            dest: "{{ etc_openvpn }}/credentials"
+            owner: root
+            group: root
+            mode: "0600"
+
+        - name: Gather local .ovpn files (vault-encrypted)
+          ansible.builtin.set_fact:
+            ovpn_sources: "{{ lookup('fileglob', ovpn_glob, wantlist=True) | sort }}"
+ 
+        - name: Debug:show .ovpn files found
+          ansible.builtin.debug:
+            var: ovpn_sources
+        
+        - name: Derive service names from .ovpn files
+          ansible.builtin.set_fact:
+            ovpn_instances: "{{ ovpn_sources | map('basename') | map('regex_replace', '\\.ovpn$', '') | list }}"
+
+
+        - name: Debug:show derived systemd service names
+          ansible.builtin.debug:
+            var: ovpn_instances
+        
+        - name: Create per-profile systemd service files
+          ansible.builtin.template:
+            src: "../templates/@.service.j2"
+            dest: "{{ systemd_dir }}/{{ item }}.service"
+            owner: root
+            group: root
+            mode: "0644"
+          loop: "{{ ovpn_instances }}"
+          vars:
+            ovpn_name: "{{ item }}"
+
+        - name: Reload systemd
+          ansible.builtin.systemd:
+            daemon_reload: true
+

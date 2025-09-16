@@ -1,0 +1,10 @@
+[Unit]
+Description={{ service_description + ovpn_name }}
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/sbin/openvpn --config /etc/openvpn/{{ ovpn_name }}.ovpn
+
+[Install]
+WantedBy=multi-user.target
