@@ -1,16 +1,17 @@
 ---
 - name: Base setup (always)
   import_playbook: playbooks/common.yml
+  tags: ["new_install","common","never"]
 
 
 - name: "NAS mount configuration"
   import_playbook: playbooks/cifs.yml
-#- name: "Brave browser setup (tag: brave)"
-#  import_playbook: playbooks/brave.yml
-
+  tags: ["new_install","cifs","never"]
 
 - name: "Dotfiles setup (tag: dotfiles)"
   import_playbook: playbooks/dotfiles.yml
+  tags: ["new_install","dotfiles","never"]
 
 - name: "VPN hideme setup (tag:hideme) "
   import_playbook: playbooks/hideme.yml
+  tags: ["new_install","hideme","never"]

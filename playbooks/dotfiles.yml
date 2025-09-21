@@ -11,6 +11,7 @@
         repo: "{{ _dotfiles_repo }}"
         dest: "{{ user_home }}/.dotfiles"
         update: yes
+        force: true
 
     - name: Run stow to link all dotfiles
       become_user: "{{ user_name }}"
