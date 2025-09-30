@@ -9,8 +9,7 @@ common_packages:
 - stow
 - keepassxc
 - nwg-look
-- telegram-desktop
-
+- firefox
 common_packages_aur:
 - brave-bin
 
