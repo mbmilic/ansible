@@ -10,6 +10,7 @@ common_packages:
 - keepassxc
 - nwg-look
 - firefox
+- fcitx5-configtool
 common_packages_aur:
 - brave-bin
 
