@@ -1,0 +1,18 @@
+---
+- name: Create sudoers drop-in for a user (NOPASSWD)
+  hosts: all
+  become: true
+  tags: [new_machine, sudoers]
+  vars_files:
+    - ../group_vars/all.yml
+  tasks:
+    - name: Install sudoers drop-in for user with NOPASSWD
+      ansible.builtin.copy:
+        dest: "/etc/sudoers.d/00_{{ user_name }}"
+        owner: root
+        group: root
+        mode: "0440"
+        content: |
+          # Managed by Ansible
+          {{ user_name }} ALL=(ALL) NOPASSWD:ALL
+        validate: "visudo -cf %s"

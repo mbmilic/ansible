@@ -15,3 +15,7 @@
 - name: "VPN hideme setup (tag:hideme) "
   import_playbook: playbooks/hideme.yml
   tags: ["new_install","hideme","never"]
+
+- name: "Sudoers file config (tag:sudoers)"
+  import_playbook: playbooks/sudoers.yml
+  tags: ["new_install","sudoers","never"]
