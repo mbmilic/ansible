@@ -1,0 +1,76 @@
+---
+- hosts: local
+  tags: [new_machine,zsh]
+  vars_files:
+    - ../group_vars/all.yml
+  vars:
+    zsh_shell_path: "/usr/bin/zsh"
+    ohmyzsh_dir: "/home/{{ user_name }}/.oh-my-zsh"
+    zshrc_path: "/home/{{ user_name }}/.zshrc"
+    zsh_custom_dir: "/home/{{ user_name }}/.oh-my-zsh/custom"
+    zsh_shell_path: "/usr/bin/zsh"
+    p10k_dir: "/home/{{ user_name }}/.oh-my-zsh/custom/themes/powerlevel10k"
+
+
+  tasks:
+    - name: Ensure base packages are present
+      pacman:
+        name:
+          - zsh
+          - curl
+          - wget
+        state: present
+        update_cache: true
+    
+    - name: Ensure {{ zsh_shell_path }} is in /etc/shells
+      lineinfile:
+        path: /etc/shells
+        line: "{{ zsh_shell_path }}"
+        state: present
+
+    - name: Set default shell to zsh for {{ user_name }}
+      user:
+        name: "{{ user_name }}"
+        shell: "{{ zsh_shell_path }}"
+
+    - name: Install Oh My Zsh (git clone)
+      git:
+        repo: "{{ ohmyzsh_repo }}"
+        dest: "{{ ohmyzsh_dir }}"
+        version: master
+        depth: 1
+        update: yes
+      become_user: "{{ user_name }}"
+    
+    - name: Create home-owned directories for Oh My Zsh
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0755"
+      loop:
+        - "{{ ohmyzsh_dir }}"
+        - "{{ zsh_custom_dir }}"
+        - "{{ zsh_custom_dir }}/themes"
+
+
+    - name: Create a fresh .zshrc from Oh My Zsh template if missing
+      copy:
+        src: "{{ ohmyzsh_dir }}/templates/zshrc.zsh-template"
+        dest: "{{ zshrc_path }}"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0644"
+        remote_src: true
+        force: false
+
+    - name: Install Powerlevel10k (git clone)
+      git:
+        repo: "{{ p10k_repo }}"
+        dest: "{{ p10k_dir }}"
+        version: master
+        depth: 1
+        update: no
+      become_user: "{{ user_name }}"
+

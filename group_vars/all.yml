@@ -19,3 +19,5 @@ common_packages_aur:
 # e.g. https://github.com/yourname/dotfiles.git
 _dotfiles_repo: "https://github.com/mbmilic/.dotfiles"
 _dotfiles_branch: main
+ohmyzsh_repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+p10k_repo: "https://github.com/romkatv/powerlevel10k.git"

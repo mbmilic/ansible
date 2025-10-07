@@ -19,3 +19,7 @@
 - name: "Sudoers file config (tag:sudoers)"
   import_playbook: playbooks/sudoers.yml
   tags: ["new_install","sudoers","never"]
+
+- name: "ZSH and plugins config (tags: zsh)"
+  import_playbook: playbooks/zsh.yml
+  tags: ["new_install","zsh","never"]
