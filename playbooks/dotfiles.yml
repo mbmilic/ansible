@@ -26,6 +26,15 @@
         chdir: "{{ user_home }}/.dotfiles"
       changed_when: "'Updated' in restore_out.stdout or 'Updated' in restore_out.stderr"
       register: restore_out
+    
+    - name: Remove HTTPS repo
+      become_user: "{{ user_name }}"
+      args:
+        chdir: "{{ user_home }}/.dotfiles"
+      command: git remote rm origin
 
-
-
+    - name: Add SSH repo
+      become_user: "{{ user_name }}"
+      args:
+        chdir: "{{ user_home }}/.dotfiles"
+      command: git remote add origin {{ _dotfiles_repo_ssh }}
