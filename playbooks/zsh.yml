@@ -1,4 +1,5 @@
 ---
+- import_playbook: dotfiles.yml
 - hosts: local
   tags: [new_machine,zsh]
   vars_files:
