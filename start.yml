@@ -23,3 +23,7 @@
 - name: "ZSH and plugins config (tags: zsh)"
   import_playbook: playbooks/zsh.yml
   tags: ["new_install","zsh","never"]
+
+- name: "Renovatio tools and configs(tags: renovatio)"
+  import_playbook: playbooks/renovatio.yml
+  tags: ["renovatio","never"]

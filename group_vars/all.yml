@@ -13,7 +13,8 @@ common_packages:
 - fcitx5-configtool
 common_packages_aur:
 - brave-bin
-
+renovatio_common_packages:
+- aws-cli-v2
 
 # Dotfiles config
 # e.g. https://github.com/yourname/dotfiles.git
