@@ -27,3 +27,7 @@
 - name: "Renovatio tools and configs(tags: renovatio)"
   import_playbook: playbooks/renovatio.yml
   tags: ["renovatio","never"]
+
+- name: "Install and enable thunderbolt networking (tags: thunderbolt)"
+  import_playbook: playbooks/thunderbolt.yml
+  tags: ["new_install","thunderbolt","never"]

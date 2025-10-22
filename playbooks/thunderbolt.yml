@@ -1,0 +1,31 @@
+---
+- hosts: local
+  become: true
+  vars_files:
+    - ../group_vars/all.yml
+  tags: ["thunderbolt", "new_install"]
+  tasks:  
+  - name: Load thunderbolt-net kernel module
+    modprobe:
+      name: thunderbolt-net
+      state: present
+
+  - name: Ensure thunderbolt-net module is loaded at boot
+    copy:
+      dest: /etc/modules-load.d/thunderbolt-net.conf
+      content: "thunderbolt-net\n"
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Install bolt package
+    pacman:
+      name: bolt
+      state: present
+      update_cache: yes
+
+  - name: Enable and start bolt service
+    systemd:
+      name: bolt.service
+      enabled: yes
+      state: started
