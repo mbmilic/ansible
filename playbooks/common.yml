@@ -3,6 +3,7 @@
   become: true
   vars_files:
     - ../group_vars/all.yml
+  tags: [new_machine, common]
   tasks:
   - name: Update pacman database (Arch)
     community.general.pacman:
@@ -33,5 +34,35 @@
       name: "{{ common_packages_aur }}"
       state: present
       use: yay
-  tags: [new_machine, common]
+  - name: Download yubico authenticator appimage
+    become: yes 
+    get_url:
+      url: "{{ yubico_authenticator_url }}"
+      dest: "/tmp/yubico_authenticator.tar.gz"
+
+  - name: Create yubico authenticator opt directory
+    file:
+        path: /opt/yubico-authenticator
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+  - name: Extract tar.gz into /opt/yubico-authenticator (no subdirectory)
+    ansible.builtin.unarchive:
+      src: "/tmp/yubico_authenticator.tar.gz"
+      dest: "/opt/yubico-authenticator"
+      remote_src: true
+      extra_opts:
+        - "--strip-components=1"
+
+  - name: Delete yubico auth tarball from /tmp 
+    ansible.builtin.file:
+      path: /tmp/yubico_authenticator.tar.gz
+      state: absent
+
+  - name: Copy launcher config file for yubico-authenticator
+    copy:
+      src: ../files/yubico-authenticator.desktop
+      dest: "/home/{{ user_name }}/.local/share/applications"
 

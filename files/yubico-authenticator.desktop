@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Yubico Authenticator
+Comment=Yubico Authenticator
+Exec=/opt/yubico-authenticator/authenticator
+Terminal=false
+Type=Application
+Icon=/opt/yubico-authenticator/data/flutter_assets/assets/graphics/app-icon.png
+StartupNotify=true

@@ -23,3 +23,4 @@ _dotfiles_branch: main
 _dotfiles_repo_ssh: "git@github.com:mbmilic/.dotfiles"
 ohmyzsh_repo: "https://github.com/ohmyzsh/ohmyzsh.git"
 p10k_repo: "https://github.com/romkatv/powerlevel10k.git"
+yubico_authenticator_url: "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz"
