@@ -1,7 +1,7 @@
 ---
 - import_playbook: dotfiles.yml
 - hosts: local
-  tags: [new_machine,zsh]
+  tags: [new_machine, zsh]
   vars_files:
     - ../group_vars/all.yml
   vars:
@@ -22,7 +22,7 @@
           - wget
         state: present
         update_cache: true
-    
+   
     - name: Ensure {{ zsh_shell_path }} is in /etc/shells
       lineinfile:
         path: /etc/shells
@@ -42,7 +42,7 @@
         depth: 1
         update: yes
       become_user: "{{ user_name }}"
-    
+   
     - name: Create home-owned directories for Oh My Zsh
       file:
         path: "{{ item }}"
@@ -74,4 +74,3 @@
         depth: 1
         update: no
       become_user: "{{ user_name }}"
-
