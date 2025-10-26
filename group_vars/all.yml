@@ -11,6 +11,7 @@ common_packages:
 - nwg-look
 - firefox
 - fcitx5-configtool
+- npm
 common_packages_aur:
 - brave-bin
 renovatio_common_packages:
