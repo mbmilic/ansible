@@ -12,6 +12,10 @@ common_packages:
 - firefox
 - fcitx5-configtool
 - npm
+- sane
+- sane-airscan
+- hplip
+- simple-scan
 common_packages_aur:
 - brave-bin
 - tofuenv
